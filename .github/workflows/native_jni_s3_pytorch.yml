@@ -52,11 +52,11 @@ jobs:
   build-pytorch-jni-linux:
     if: github.repository == 'deepjavalibrary/djl'
     runs-on: ubuntu-latest
-    container: nvidia/cuda:11.3.1-cudnn8-devel-ubuntu18.04
+    container: nvidia/cuda:12.1.1-cudnn8-devel-ubuntu20.04
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
           java-version: 17
@@ -70,11 +70,7 @@ jobs:
         run: |
           apt-get update
           DEBIAN_FRONTEND=noninteractive apt-get install -y locales curl unzip software-properties-common
-          add-apt-repository -y ppa:deadsnakes/ppa
-          apt-get update
-          apt-get install -y python3 python3-distutils
-          curl -O https://bootstrap.pypa.io/pip/3.6/get-pip.py
-          python3 get-pip.py
+          apt-get install -y python3-pip python3-distutils
           pip3 install awscli cmake
           ln -s /usr/local/bin/cmake /usr/bin/cmake
       - name: Release JNI prep
@@ -88,8 +84,6 @@ jobs:
           ./gradlew :engines:pytorch:pytorch-native:cleanJNI
           ./gradlew :engines:pytorch:pytorch-native:compileJNI -Pcu11 -Ppt_version=$PYTORCH_VERSION
           ./gradlew :engines:pytorch:pytorch-native:cleanJNI
-          if [[ "$PYTORCH_VERSION" == "1.12.1" ]]; then ./gradlew :engines:pytorch:pytorch-native:compileJNI -Pcu10 -Ppt_version=$PYTORCH_VERSION; fi
-          if [[ "$PYTORCH_VERSION" == "1.11.0" ]]; then ./gradlew :engines:pytorch:pytorch-native:compileJNI -Pcu10 -Ppt_version=$PYTORCH_VERSION; fi
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
