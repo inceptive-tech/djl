@@ -16,18 +16,6 @@ processResources {
     doLast {
         def url = "https://publish.djl.ai/llama/${llamacpp_version}/jnilib/${djl_version}"
         def files = new String[]{
-                "linux-x86_64/libdjl_llama.so",
-                "linux-x86_64/libllama.so",
-                "linux-aarch64/libdjl_llama.so",
-                "linux-aarch64/libllama.so",
-                "osx-x86_64/libdjl_llama.dylib",
-                "osx-x86_64/libllama.dylib",
-                "osx-x86_64/ggml-metal.metal",
-                "osx-aarch64/libdjl_llama.dylib",
-                "osx-aarch64/libllama.dylib",
-                "osx-aarch64/ggml-metal.metal",
-                "win-x86_64/djl_llama.dll",
-                "win-x86_64/llama.dll",
         }
         def jnilibDir = "${project.projectDir}/jnilib/${djl_version}"
         files.each { entry ->
