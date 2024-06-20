@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
 project(djl_llama CXX)
 
+set(CMAKE_CUDA_ARCHITECTURES "native")
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(BUILD_SHARED_LIBS ON)
 

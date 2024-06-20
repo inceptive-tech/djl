@@ -27,7 +27,7 @@ cd build
 rm -rf classes
 mkdir classes
 javac -classpath $CLASSPATH -sourcepath ../src/main/java/:../../../api/src/main/java ../src/main/java/ai/djl/llama/jni/LlamaLibrary.java -h include -d classes
-cmake ..
+cmake  .. -DCMAKE_CUDA_COMPILER=$(which nvcc) -DLLAMA_CUDA=ON -DOS_NAME=$PLATFORM -DOS_ARCH=$ARCH -DLLAMA_VERSION=$VERSION
 cmake --build . --config Release -- -j "${NUM_PROC}"
 
 popd
