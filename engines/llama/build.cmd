@@ -14,7 +14,7 @@ if exist build rd /q /s build
 md build\classes
 cd build
 javac -classpath "%2" -sourcepath ..\src\main\java\ ..\src\main\java\ai\djl\llama\jni\LlamaLibrary.java -h include -d classes
-cmake ..
+cmake .. -DCMAKE_CUDA_COMPILER="nvcc" -DLLAMA_CUDA=ON -DOS_NAME="windows" -DOS_ARCH="x86_64" -DLLAMA_VERSION="%VERSION%"
 cmake --build . --config Release
 
 @rem for nightly ci
